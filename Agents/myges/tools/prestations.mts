@@ -33,9 +33,12 @@ export const prestations = tool(
         throw new Error(`Erreur API: ${response.status} - ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const responseData = await response.json();
       
-      if (!data || data.length === 0) {
+      // Gestion du format de réponse {success: true, data: [...]}
+      const data = responseData.data || responseData;
+      
+      if (!data || !Array.isArray(data) || data.length === 0) {
         return `❌ Aucune prestation disponible pour les critères: ${categorie ? `catégorie=${categorie}` : ''} ${ville ? `ville=${ville}` : ''} ${specialite ? `spécialité=${specialite}` : ''}`;
       }
       

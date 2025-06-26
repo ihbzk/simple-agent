@@ -1,7 +1,7 @@
 import type { CompiledStateGraph } from '@langchain/langgraph';
 import 'dotenv/config';
 
-import { mygesAgent } from '../Agents/myges/myges.mts';
+import { synaptixAgent } from '../Agents/myges/myges.mts';
 
 export interface AgentInfo {
   id: string;
@@ -12,11 +12,11 @@ export interface AgentInfo {
 
 // Registre des agents - Ajoutez vos agents ici
 export const AGENTS_REGISTRY: Record<string, AgentInfo> = {
-  myges: {
-    id: 'myges',
-    name: 'MyGES Agent',
-    description: 'Agent spécialisé pour MyGES et les informations météo',
-    agent: mygesAgent
+  synaptix: {
+    id: 'synaptix',
+    name: 'Synaptix Agent',
+    description: 'Agent spécialisé pour la recherche de prestataires et services',
+    agent: synaptixAgent
   }
 };
 

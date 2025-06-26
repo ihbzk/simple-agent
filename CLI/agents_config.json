@@ -1,10 +1,10 @@
 {
-  "api_url": "http://10.213.22.125:8080",
+  "api_url": "http://localhost:1235",
   "agents": [
     {
-      "id": "myges",
-      "name": "MyGES",
-      "description": "Agent spécialisé pour MyGES et la recherche de prestataires"
+      "id": "synaptix",
+      "name": "Synaptix",
+      "description": "Agent spécialisé pour la recherche de prestataires et services"
     }
   ]
 } 
