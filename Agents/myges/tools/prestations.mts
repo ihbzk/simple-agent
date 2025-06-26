@@ -5,12 +5,12 @@ export const prestations = tool(
   async ({ categorie, ville, specialite }) => {
     try {
       // Construction de l'URL avec les paramètres de filtrage
-      let url = "http://localhost:3000/api/prestations/";
+      let url = "http://localhost:3000/api/prestations/search";
       const params = new URLSearchParams();
       
-      if (categorie) params.append('categorie', categorie);
+      if (categorie) params.append('services', categorie);
       if (ville) params.append('city', ville);
-      if (specialite) params.append('specialite', specialite);
+      if (specialite) params.append('specialties', specialite);
       
       if (params.toString()) {
         url += `?${params.toString()}`;
