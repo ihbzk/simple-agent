@@ -42,8 +42,13 @@ export const prestations = tool(
         return `❌ Aucune prestation disponible pour les critères: ${categorie ? `catégorie=${categorie}` : ''} ${ville ? `ville=${ville}` : ''} ${specialite ? `spécialité=${specialite}` : ''}`;
       }
       
+      // Limiter à 3 prestataires maximum et trier par note
+      const sortedData = data
+        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+        .slice(0, 3);
+      
       // Formatage des résultats selon la structure JSON réelle
-      const results = data.map((prestation: any) => ({
+      const results = sortedData.map((prestation: any, index: number) => ({
         id: prestation.id,
         titre: prestation.title,
         description: prestation.description,
@@ -65,9 +70,10 @@ export const prestations = tool(
       }));
       
       return {
-        message: `✅ ${results.length} prestation(s) trouvée(s)`,
+        message: `✅ ${results.length} prestataire(s) trouvé(s) (sur ${data.length} disponibles)`,
         prestations: results,
-        total: results.length
+        total: results.length,
+        total_disponibles: data.length
       };
       
     } catch (error) {
@@ -77,11 +83,11 @@ export const prestations = tool(
   },
   {
     name: "prestations",
-    description: "Recherche et récupère des prestations depuis l'API en fonction de critères (catégorie, ville, spécialité)",
+    description: "Recherche et récupère des prestataires de services (maximum 3) avec filtres par catégorie, ville, spécialité. Catégories disponibles : développement, design, peinture, plomberie, coiffure, formation, restauration, santé, beauté, etc.",
     schema: z.object({
-      categorie: z.string().optional().describe("La catégorie de prestation (ex: santé, beauté, formation, restauration, etc.)"),
-      ville: z.string().optional().describe("La ville où chercher des prestations"),
-      specialite: z.string().optional().describe("La spécialité ou type de service recherché"),
+      categorie: z.string().optional().describe("La catégorie de prestation (ex: développement, design, peinture, plomberie, coiffure, formation, restauration, santé, beauté, etc.)"),
+      ville: z.string().optional().describe("La ville où chercher des prestataires"),
+      specialite: z.string().optional().describe("La spécialité ou type de service recherché (ex: react, logo, peinture intérieure, coiffure homme, plomberie, etc.)"),
     }),
   }
 ); 
